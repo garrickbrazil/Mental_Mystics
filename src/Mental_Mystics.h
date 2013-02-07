@@ -16,7 +16,6 @@
 typedef enum {MAIN_MENU, ILLUSION_1} STATE;
 typedef enum {UP, DOWN, LEFT, RIGHT} DIRECTION;
 
-
 class GLintPoint{
 	
 	public: int x; int y;
@@ -30,6 +29,8 @@ class GLintPoint{
 // Prototypes
 void initialize();
 void display();
-void keyboard( unsigned char key, int x, int y );
+void keys( unsigned char key, int x, int y );
+void keysSpecial(int key, int x, int y);
 void drawDiamond(GLintPoint center, int size);
 void drawArrow(GLintPoint arrow_tip, DIRECTION direction);
+void drawTextCentered(int centerX, int centerY, char* text);

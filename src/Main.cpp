@@ -8,6 +8,9 @@
 
 #include "Mental_Mystics.h"
 
+char TITLE_MAIN[] = "Main";
+char TITLE_DIAMOND[] = "Diamonds!";
+
 int state;
 
 /**********************************************************
@@ -22,7 +25,8 @@ int main(int argc, char **argv){
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("Mental Mystics");
 	glutDisplayFunc(display);
-	glutKeyboardFunc(keyboard);
+	glutKeyboardFunc(keys);
+	glutSpecialFunc(keysSpecial);
 	initialize();
 	glutMainLoop();
 
@@ -30,21 +34,40 @@ int main(int argc, char **argv){
 }
 
 /**********************************************************
- * Function: keyboard
+ * Function: keys
  * Purpose: controls keyboard movements
  *********************************************************/
-void keyboard( unsigned char key, int x, int y ) {
+void keys( unsigned char key, int x, int y ) {
 
 	switch( key ) {
 		
 		// Key combinations
 		case 'a': if(state != MAIN_MENU) state--; break;
 		case 'd': if(state != ILLUSION_1) state++; break;
+		case 27: exit(1);
 		default: break;
 	}
 	
 	display();
 }
+
+/**********************************************************
+ * Function: keysSpecial
+ * Purpose: controls special keyboard movements
+ *********************************************************/
+void keysSpecial(int key, int x, int y) {
+
+	switch(key) {
+		
+		// Key combinations
+		case GLUT_KEY_LEFT: if(state != MAIN_MENU) state--; break;
+		case GLUT_KEY_RIGHT: if(state != ILLUSION_1) state++; break;
+		default: break;
+	}
+	
+	display();
+}
+
 
 /**********************************************************
  * Function: initialize
@@ -67,10 +90,9 @@ void initialize(){
 void display(){
 	
 	glClear(GL_COLOR_BUFFER_BIT);
+	int arrow_padding = 15;
 	
-	if (state == MAIN_MENU){
-		
-		int arrow_padding = 15;
+	if (state == MAIN_MENU){	
 		
 		// Set arrow cordinates
 		GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
@@ -79,6 +101,8 @@ void display(){
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
 		drawArrow(right_arrow_tip, RIGHT);
+		
+		drawTextCentered(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_MAIN);
 	}
 	
 	else{
@@ -98,6 +122,9 @@ void display(){
 		drawDiamond(d4_center, 20);
 		drawDiamond(d5_center, 40);
 		drawDiamond(d6_center, 60);
+		
+		drawTextCentered(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_DIAMOND);
+		
 	}
 	
 	glFlush();
