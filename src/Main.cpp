@@ -8,15 +8,16 @@
 
 #include "Mental_Mystics.h"
 
-char TITLE_MAIN[] = "Main";
+char TITLE_MAIN[] = "Mental Mystics";
 char TITLE_DIAMOND[] = "Diamonds!";
+char TITLE_CHECKER[] = "Checker!";
 int arrow_padding = 15;
 GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 
 int state;
 int first_state = MAIN_MENU;
-int last_state = ILLUSION_1;
+int last_state = ILLUSION_2;
 
 /**********************************************************
  * Function: main
@@ -29,11 +30,11 @@ int main(int argc, char **argv){
 	glutInitWindowSize(WIDTH,HEIGHT);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("Mental Mystics");
+	initialize();
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keys);
 	glutSpecialFunc(keysSpecial);
 	glutMouseFunc(mouseClick);
-	initialize();
 	glutMainLoop();
 
 	return 0;
@@ -48,8 +49,8 @@ void keys( unsigned char key, int x, int y ) {
 	switch( key ) {
 		
 		// Key combinations
-		case 'a': if(state != MAIN_MENU) state--; break;
-		case 'd': if(state != ILLUSION_1) state++; break;
+		case 'a': if(state != first_state) state--; break;
+		case 'd': if(state != last_state) state++; break;
 		case 27: exit(1);
 		default: break;
 	}
@@ -66,8 +67,8 @@ void keysSpecial(int key, int x, int y) {
 	switch(key) {
 		
 		// Key combinations
-		case GLUT_KEY_LEFT: if(state != MAIN_MENU) state--; break;
-		case GLUT_KEY_RIGHT: if(state != ILLUSION_1) state++; break;
+		case GLUT_KEY_LEFT: if(state != first_state) state--; break;
+		case GLUT_KEY_RIGHT: if(state != last_state) state++; break;
 		default: break;
 	}
 	
@@ -87,7 +88,7 @@ void mouseClick(int button, int buttonState, int x, int y){
 		// Meet Y criteria
 		if(HEIGHT - y < left_arrow_tip.y + ARROW_H/2 && HEIGHT - y > left_arrow_tip.y - ARROW_H/2){
 		
-			// Left or Right?
+			// Left or Right arrow?
 			if (state != first_state && x > left_arrow_tip.x && x < left_arrow_tip.x + ARROW_W) state--;
 			else if(state != last_state && x < right_arrow_tip.x && x > right_arrow_tip.x - ARROW_W) state++;
 			
@@ -121,14 +122,16 @@ void display(){
 	
 	if (state == MAIN_MENU){	
 			
-		// Draw arrows
-		drawArrow(left_arrow_tip, LEFT);
-		drawArrow(right_arrow_tip, RIGHT);
-		
-		drawTextCentered(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_MAIN);
+		char inst[] = "Press enter to continue...";	
+		char by_Line1[] = "By Garrick Brazil, Devin Holland";
+		char by_Line2[] = "Edward Cana, Daniel Peterson";
+		drawTextTitle(WIDTH/2, (HEIGHT - arrow_padding)*70/100, TITLE_MAIN);
+		//drawText15(WIDTH/2, (HEIGHT - arrow_padding)*55/100, inst);
+		drawText12(WIDTH/2, (HEIGHT - arrow_padding)*40/100, by_Line1);
+		drawText12(WIDTH/2, (HEIGHT - arrow_padding)*40/100 - 18, by_Line2);
 	}
 	
-	else{
+	else if(state == ILLUSION_1){
 			
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
@@ -150,8 +153,18 @@ void display(){
 		drawDiamond(d5_center, 40);
 		drawDiamond(d6_center, 60);
 		
-		drawTextCentered(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_DIAMOND);
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_DIAMOND);
 		
+	}
+	
+	else{
+	
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		//drawArrow(right_arrow_tip, RIGHT);
+	
+		drawLineIllusion(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_CHECKER);
 	}
 	
 	glFlush();
