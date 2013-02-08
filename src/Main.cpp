@@ -10,8 +10,13 @@
 
 char TITLE_MAIN[] = "Main";
 char TITLE_DIAMOND[] = "Diamonds!";
+int arrow_padding = 15;
+GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
+GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 
 int state;
+int first_state = MAIN_MENU;
+int last_state = ILLUSION_1;
 
 /**********************************************************
  * Function: main
@@ -27,6 +32,7 @@ int main(int argc, char **argv){
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keys);
 	glutSpecialFunc(keysSpecial);
+	glutMouseFunc(mouseClick);
 	initialize();
 	glutMainLoop();
 
@@ -70,6 +76,28 @@ void keysSpecial(int key, int x, int y) {
 
 
 /**********************************************************
+ * Function: mouseClick
+ * Purpose: handles button click
+ *********************************************************/
+void mouseClick(int button, int buttonState, int x, int y){
+	
+	// Left click
+	if ((button == GLUT_LEFT_BUTTON) && (buttonState == GLUT_DOWN)){
+		
+		// Meet Y criteria
+		if(HEIGHT - y < left_arrow_tip.y + ARROW_H/2 && HEIGHT - y > left_arrow_tip.y - ARROW_H/2){
+		
+			// Left or Right?
+			if (state != first_state && x > left_arrow_tip.x && x < left_arrow_tip.x + ARROW_W) state--;
+			else if(state != last_state && x < right_arrow_tip.x && x > right_arrow_tip.x - ARROW_W) state++;
+			
+			display();
+		}
+	}
+}
+
+
+/**********************************************************
  * Function: initialize
  * Purpose: one time initialization (color and ortho size)
  *********************************************************/
@@ -90,14 +118,9 @@ void initialize(){
 void display(){
 	
 	glClear(GL_COLOR_BUFFER_BIT);
-	int arrow_padding = 15;
 	
 	if (state == MAIN_MENU){	
-		
-		// Set arrow cordinates
-		GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
-		GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
-		
+			
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
 		drawArrow(right_arrow_tip, RIGHT);
@@ -106,6 +129,10 @@ void display(){
 	}
 	
 	else{
+			
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		drawArrow(right_arrow_tip, RIGHT);
 	
 		// Centers
 		GLintPoint d1_center(200, 200);
