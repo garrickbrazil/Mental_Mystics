@@ -1,5 +1,10 @@
 #include "Mental_Mystics.h"
 
+void drawCircles(int width, int height);
+void drawLines(int startX, int startY, int squareSize, int size);
+void drawSquares(int rowNum, double squareSize, int startX, int startY);
+
+
 void drawSquares(int rowNum, double squareSize, int startX, int startY)
 {
 	if ((rowNum == 1 || rowNum == 5 || rowNum == 9))

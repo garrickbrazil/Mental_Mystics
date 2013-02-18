@@ -6,6 +6,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -13,7 +14,7 @@
 #define ARROW_H 50
 
 
-typedef enum {MAIN_MENU, ILLUSION_1, ILLUSION_2} STATE;
+typedef enum {MAIN_MENU, ILLUSION_1, ILLUSION_2, ILLUSION_3} STATE;
 typedef enum {UP, DOWN, LEFT, RIGHT} DIRECTION;
 
 class GLintPoint{
@@ -26,17 +27,26 @@ class GLintPoint{
 	}
 };
 
-// Prototypes
+// Setup
 void initialize();
 void display();
 void keys( unsigned char key, int x, int y );
 void keysSpecial(int key, int x, int y);
-void drawDiamond(GLintPoint center, int size);
-void drawArrow(GLintPoint arrow_tip, DIRECTION direction);
+void mouseClick(int button, int buttonState, int x, int y);
+
+// General
+void drawCircle(int x, int y, float radius);
+void glCircle3i(int x, int y, int radius);
+
+// Draw text
 void drawTextTitle(int centerX, int centerY, char* text);
 void drawText12(int centerX, int centerY, char* text);
 void drawText15(int centerX, int centerY, char* text);
-void mouseClick(int button, int buttonState, int x, int y);
+
+// Arrow
+void drawArrow(GLintPoint arrow_tip, DIRECTION direction);
+
+// Illusions
 void drawLineIllusion(int startX, int startY, int size);
-void drawLines(int startX, int startY, int squareSize, int size);
-void drawSquares(int rowNum, double squareSize, int startX, int startY);
+void drawCircles(int width, int height);
+void drawBlackDots(int startX, int startY, int size);

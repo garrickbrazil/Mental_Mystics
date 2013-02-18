@@ -9,15 +9,17 @@
 #include "Mental_Mystics.h"
 
 char TITLE_MAIN[] = "Mental Mystics";
-char TITLE_DIAMOND[] = "Diamonds!";
-char TITLE_CHECKER[] = "Checker!";
+char TITLE_LINES[] = "Lines & Circles";
+char TITLE_CHECKER[] = "Slanted Checkers";
+char TITLE_BLACKDOTS[] = "Black Dots";
 int arrow_padding = 15;
+
 GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 
 int state;
 int first_state = MAIN_MENU;
-int last_state = ILLUSION_2;
+int last_state = ILLUSION_3;
 
 /**********************************************************
  * Function: main
@@ -57,6 +59,7 @@ void keys( unsigned char key, int x, int y ) {
 	
 	display();
 }
+
 
 /**********************************************************
  * Function: keysSpecial
@@ -125,46 +128,44 @@ void display(){
 		char inst[] = "Press enter to continue...";	
 		char by_Line1[] = "By Garrick Brazil, Devin Holland";
 		char by_Line2[] = "Edward Cana, Daniel Peterson";
+		
+		// Main titles
 		drawTextTitle(WIDTH/2, (HEIGHT - arrow_padding)*70/100, TITLE_MAIN);
-		//drawText15(WIDTH/2, (HEIGHT - arrow_padding)*55/100, inst);
 		drawText12(WIDTH/2, (HEIGHT - arrow_padding)*40/100, by_Line1);
 		drawText12(WIDTH/2, (HEIGHT - arrow_padding)*40/100 - 18, by_Line2);
 	}
 	
 	else if(state == ILLUSION_1){
 			
+		
+		
+		drawCircles(WIDTH , (HEIGHT - ARROW_H - arrow_padding*3));
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_LINES);
+		
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		drawArrow(right_arrow_tip, RIGHT);
+	}
+	
+	else if(state == ILLUSION_2){
+	
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
 		drawArrow(right_arrow_tip, RIGHT);
 	
-		// Centers
-		GLintPoint d1_center(200, 200);
-		GLintPoint d2_center(320, 215);
-		GLintPoint d3_center(460, 315);
-		GLintPoint d4_center(500, 100);
-		GLintPoint d5_center(320, 415);
-		GLintPoint d6_center(120, 250);
-		
-		// Draw
-		drawDiamond(d1_center, 28);
-		drawDiamond(d2_center, 50);
-		drawDiamond(d3_center, 35);
-		drawDiamond(d4_center, 20);
-		drawDiamond(d5_center, 40);
-		drawDiamond(d6_center, 60);
-		
-		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_DIAMOND);
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_CHECKER);
+		drawLineIllusion(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
 		
 	}
 	
-	else{
-	
+	else if (state == ILLUSION_3){
+		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
 		//drawArrow(right_arrow_tip, RIGHT);
 	
-		drawLineIllusion(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
-		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_CHECKER);
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_BLACKDOTS);
+		drawBlackDots(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
 	}
 	
 	glFlush();
