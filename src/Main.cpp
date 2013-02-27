@@ -8,19 +8,18 @@
 
 #include "Mental_Mystics.h"
 
-char TITLE_MAIN[] = "Mental Mystics";
-char TITLE_LINES[] = "Lines & Circles";
-char TITLE_CHECKER[] = "Slanted Checkers";
-char TITLE_BLACKDOTS[] = "Black Dots";
+// Titles
+char TITLE_MAIN[] = "Mental Mystics", TITLE_LINES[] = "Lines & Circles",
+	 TITLE_CHECKER[] = "Slanted Checkers", TITLE_BLACKDOTS[] = "Black Dots";
+
 int arrow_padding = 15;
 int HEIGHT_IL = HEIGHT * .8;
+extern float t;
 
 GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 
-int state;
-int first_state = MAIN_MENU;
-int last_state = ILLUSION_3;
+int state, mode, first_state, last_state;
 
 /**********************************************************
  * Function: main
@@ -44,6 +43,23 @@ int main(int argc, char **argv){
 }
 
 /**********************************************************
+ * Function: initialize
+ * Purpose: one time initialization (color and ortho size)
+ *********************************************************/
+void initialize(){
+	
+	Timer(0);
+	state = MAIN_MENU;
+	last_state = ILLUSION_4;
+	mode = STATIC;
+	glClearColor(1, 1, 1, 0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, WIDTH, 0.0, HEIGHT);
+}
+
+
+/**********************************************************
  * Function: keys
  * Purpose: controls keyboard movements
  *********************************************************/
@@ -54,6 +70,11 @@ void keys( unsigned char key, int x, int y ) {
 		// Key combinations
 		case 'a': if(state != first_state) state--; break;
 		case 'd': if(state != last_state) state++; break;
+		case 32: 
+				if (mode == STATIC) mode = ANIMATION;
+				else{ mode = STATIC; t = 0; }
+				display();
+				break;
 		case 27: exit(1);
 		default: break;
 	}
@@ -71,12 +92,21 @@ void keysSpecial(int key, int x, int y) {
 	switch(key) {
 		
 		// Key combinations
-		case GLUT_KEY_LEFT: if(state != first_state) state--; break;
-		case GLUT_KEY_RIGHT: if(state != last_state) state++; break;
+		case GLUT_KEY_LEFT: if(state != first_state) state--; t = 0; mode = STATIC; break;
+		case GLUT_KEY_RIGHT: if(state != last_state) state++; t = 0; mode = STATIC; break;
 		default: break;
 	}
 	
 	display();
+}
+
+/**********************************************************
+ * Function: Timer
+ * Purpose: sets up clock for program
+ *********************************************************/
+void Timer(int iUnused){
+    glutPostRedisplay();
+    glutTimerFunc(30, Timer, 0);
 }
 
 
@@ -99,20 +129,6 @@ void mouseClick(int button, int buttonState, int x, int y){
 			display();
 		}
 	}
-}
-
-
-/**********************************************************
- * Function: initialize
- * Purpose: one time initialization (color and ortho size)
- *********************************************************/
-void initialize(){
-
-	state = MAIN_MENU;
-	glClearColor(1, 1, 1, 0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0.0, WIDTH, 0.0, HEIGHT);
 }
 
 
@@ -140,7 +156,9 @@ void display(){
 			
 		
 		char instLinesCircles[] = "Are the lines equal?";
-		drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		
+		if(mode == STATIC) drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		else animatedDrawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_LINES);
 		drawText15(WIDTH/2, HEIGHT_IL, instLinesCircles);
 		
@@ -165,16 +183,36 @@ void display(){
 	
 	else if (state == ILLUSION_3){
 		
+		
+		drawDisappearGrad(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		drawArrow(right_arrow_tip, RIGHT);
+	
+		char titleDisappear[] = "Vanishing Gradient";
+		char instDisappear[] = "Stare at the black dot and";
+		char instDisappear2[] = "watch the background disappear.";
+		
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, titleDisappear);
+		drawText15(WIDTH/2, HEIGHT_IL + 15, instDisappear);
+		drawText15(WIDTH/2, HEIGHT_IL - 5, instDisappear2);
+		
+	}
+	
+	else if (state == ILLUSION_4){
+		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
 		//drawArrow(right_arrow_tip, RIGHT);
 	
-		char instBlackDots[] = "Are the dots black..";
-		char instBlackDots2[] = "or white?";
+		char instBlackDots[] = "Are the dots white..";
+		char instBlackDots2[] = "or black?";
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_BLACKDOTS);
 		drawText15(WIDTH/2, HEIGHT_IL + 15, instBlackDots);
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instBlackDots2);
 		drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		
 	}
 	
 	glFlush();

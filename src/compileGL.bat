@@ -1,0 +1,1 @@
+g++ %1 -L/lib -L/lib -L/lib -lglut32 -lglu32 -lopengl32 -o %2

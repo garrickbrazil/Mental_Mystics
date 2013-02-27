@@ -44,11 +44,11 @@ void drawText12(int centerX, int centerY, char* text){
 void drawText15(int centerX, int centerY, char* text){
 		
 	int length = strlen(text);
-	int x = centerX - 18*length/2;
+	int x = centerX - 15*length/2;
 	int y = centerY;
 	int index;
 	
-	for(index = 0; index < length; index++, x += 18){
+	for(index = 0; index < length; index++, x += 15){
 		glRasterPos2f(x, y);
 		glColor3f (0.0f, 0.0f, 0.0f);
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[index]);
