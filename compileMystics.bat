@@ -2,6 +2,11 @@
 
 @if ERRORLEVEL == 1 ( 
   echo You failed... 
-) else (echo Success.)
+  @pause
+) else ( 
+  echo Success. 
+  @cd bin
+  @Mental_Mystics.exe 
+)
 
-@pause
+

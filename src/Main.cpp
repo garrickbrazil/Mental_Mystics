@@ -13,6 +13,7 @@ char TITLE_LINES[] = "Lines & Circles";
 char TITLE_CHECKER[] = "Slanted Checkers";
 char TITLE_BLACKDOTS[] = "Black Dots";
 int arrow_padding = 15;
+int HEIGHT_IL = HEIGHT * .8;
 
 GLintPoint left_arrow_tip(arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
 GLintPoint right_arrow_tip(WIDTH - arrow_padding, HEIGHT - ARROW_H/2 - arrow_padding);
@@ -138,9 +139,10 @@ void display(){
 	else if(state == ILLUSION_1){
 			
 		
-		
-		drawCircles(WIDTH , (HEIGHT - ARROW_H - arrow_padding*3));
+		char instLinesCircles[] = "Are the lines equal?";
+		drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_LINES);
+		drawText15(WIDTH/2, HEIGHT_IL, instLinesCircles);
 		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
@@ -153,9 +155,12 @@ void display(){
 		drawArrow(left_arrow_tip, LEFT);
 		drawArrow(right_arrow_tip, RIGHT);
 	
+		char instLineIl[] = "Are the lines straight..";
+		char instLineIl2[] = "or slanted?";
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_CHECKER);
-		drawLineIllusion(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
-		
+		drawLineIllusion(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		drawText15(WIDTH/2, HEIGHT_IL + 15, instLineIl);
+		drawText15(WIDTH/2, HEIGHT_IL - 5, instLineIl2);
 	}
 	
 	else if (state == ILLUSION_3){
@@ -164,8 +169,12 @@ void display(){
 		drawArrow(left_arrow_tip, LEFT);
 		//drawArrow(right_arrow_tip, RIGHT);
 	
+		char instBlackDots[] = "Are the dots black..";
+		char instBlackDots2[] = "or white?";
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_BLACKDOTS);
-		drawBlackDots(WIDTH/2 - (HEIGHT - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT - ARROW_H - arrow_padding*3));
+		drawText15(WIDTH/2, HEIGHT_IL + 15, instBlackDots);
+		drawText15(WIDTH/2, HEIGHT_IL - 5, instBlackDots2);
+		drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
 	}
 	
 	glFlush();
