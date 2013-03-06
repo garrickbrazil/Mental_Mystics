@@ -211,8 +211,8 @@ void display(){
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_BLACKDOTS);
 		drawText15(WIDTH/2, HEIGHT_IL + 15, instBlackDots);
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instBlackDots2);
-		drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
-		
+		if(mode == STATIC) drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		else drawBlackDotsAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
 	}
 	
 	glFlush();

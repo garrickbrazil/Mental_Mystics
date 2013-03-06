@@ -53,4 +53,5 @@ void drawLineIllusion(int startX, int startY, int size);
 void drawCircles(int width, int height);
 void animatedDrawCircles(int width, int height);
 void drawBlackDots(int startX, int startY, int size);
+void drawBlackDotsAni(int startX, int startY, int size);
 void drawDisappearGrad(int width, int height);
