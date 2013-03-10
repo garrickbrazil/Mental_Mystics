@@ -1,5 +1,7 @@
 #include "Mental_Mystics.h"
 
+extern float t;
+
 void drawCircles(int width, int height);
 void drawLines(int startX, int startY, int squareSize, int size);
 void drawSquares(int rowNum, double squareSize, int startX, int startY);
@@ -14,47 +16,47 @@ void drawSquares(int rowNum, double squareSize, int startX, int startY)
 			if(col % 2 == 0)
 			{
 				glColor3f(1,1,1);
-				glRecti(squareSize*(col-1)+startX, squareSize*(rowNum-1)+startY, squareSize*(col)+startX, squareSize*(rowNum)+startY);
+				glRecti(squareSize*(col-1) + startX, squareSize*(rowNum-1) + startY, squareSize*(col) + startX, squareSize*(rowNum) + startY);
 			}
 			else
 			{
 				glColor3f(0, 0, 0);
-				glRecti(squareSize*(col-1)+startX, squareSize*(rowNum-1)+startY, squareSize*(col)+startX, squareSize*(rowNum)+startY);
+				glRecti(squareSize*(col-1) + startX, squareSize*(rowNum-1) + startY, squareSize*(col) + startX, squareSize*(rowNum) + startY);
+			}
 		}
 	}
-}
-else if ((rowNum ==2) || (rowNum == 4) || (rowNum == 8) || (rowNum == 6))
-{
-	for(int col = 1; col <=10; col++)
+	else if ((rowNum ==2) || (rowNum == 4) || (rowNum == 8) || (rowNum == 6))
 	{
-		if(col % 2 == 0)
+		for(int col = 1; col <=10; col++)
 		{
+			if(col % 2 == 0)
+			{
+				glColor3f(1,1,1);
+				glRecti(squareSize*(col-1) + startX + (squareSize/4)*(1-t + .001), squareSize*(rowNum-1) + startY, squareSize*(col) + startX + (squareSize/4)*(1-t + .001), squareSize*(rowNum) + startY);
+			}
+			else
+			{
+				glColor3f(0, 0, 0);
+				glRecti(squareSize*(col-1) + startX + (squareSize/4)*(1-t + .001), squareSize*(rowNum-1) + startY, squareSize*(col) + startX + (squareSize/4)*(1-t + .001), squareSize*(rowNum) + startY);
+			}
+		}
+	}
+	else if(rowNum == 3 || rowNum == 7)
+	{
+		for(int col = 1; col <=10; col++)
+		{
+			if(col % 2 == 0)
+			{
 			glColor3f(1,1,1);
-			glRecti(squareSize*(col-1)+startX+(squareSize/4), squareSize*(rowNum-1)+startY, squareSize*(col)+startX+(squareSize/4), squareSize*(rowNum)+startY);
-		}
-		else
-		{
-			glColor3f(0, 0, 0);
-			glRecti(squareSize*(col-1)+startX+(squareSize/4), squareSize*(rowNum-1)+startY, squareSize*(col)+startX+(squareSize/4), squareSize*(rowNum)+startY);
-		}
-	}
-}
-else if(rowNum == 3 || rowNum == 7)
-{
-	for(int col = 1; col <=10; col++)
-	{
-		if(col % 2 == 0)
-		{
-		glColor3f(1,1,1);
-		glRecti(squareSize*(col-1)+startX+(squareSize/2), squareSize*(rowNum-1)+startY, squareSize*(col)+startX+(squareSize/2), squareSize*(rowNum)+startY);
-		}
-		else
-		{
-			glColor3f(0, 0, 0);
-			glRecti(squareSize*(col-1)+startX+(squareSize/2), squareSize*(rowNum-1)+startY, squareSize*(col)+startX+(squareSize/2), squareSize*(rowNum)+startY);
+			glRecti(squareSize*(col-1) + startX + (squareSize/2)*(1-t + .001), squareSize*(rowNum-1) + startY, squareSize*(col) + startX + (squareSize/2)*(1-t + .001), squareSize*(rowNum) + startY);
+			}
+			else
+			{
+				glColor3f(0, 0, 0);
+				glRecti(squareSize*(col-1) + startX + (squareSize/2)*(1-t + .001), squareSize*(rowNum-1) + startY, squareSize*(col) + startX + (squareSize/2)*(1-t + .001), squareSize*(rowNum) + startY);
+			}
 		}
 	}
-}
 }
 void drawLines(int startX, int startY, int squareSize, int size)
 {
@@ -66,6 +68,19 @@ void drawLines(int startX, int startY, int squareSize, int size)
 		glVertex2i(size+startX,(i-1)*squareSize+startY);
 		glEnd();
 	}
+}
+
+void drawLineIllusionAni(int startX, int startY, int size){
+	
+	do {
+		
+		drawLineIllusion(startX, startY, size);
+		
+		glFlush();
+		if(t < 1) t += .001;
+	}
+	while(t < 1);
+	
 }
 
 void drawLineIllusion(int startX, int startY, int size)

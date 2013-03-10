@@ -10,7 +10,8 @@
 
 // Titles
 char TITLE_MAIN[] = "Mental Mystics", TITLE_LINES[] = "Lines & Circles",
-	 TITLE_CHECKER[] = "Slanted Checkers", TITLE_BLACKDOTS[] = "Black Dots";
+	 TITLE_CHECKER[] = "Slanted Checkers", TITLE_BLACKDOTS[] = "Black Dots",
+	 TITLE_PEG[] = "Three Pegs";
 
 int arrow_padding = 15;
 int HEIGHT_IL = HEIGHT * .8;
@@ -48,9 +49,15 @@ int main(int argc, char **argv){
  *********************************************************/
 void initialize(){
 	
-	Timer(0);
+	// States
 	state = MAIN_MENU;
-	last_state = ILLUSION_4;
+	last_state = ILLUSION_5;
+	
+	// Timing
+	t = 0;
+	Timer(0);
+	
+	// General
 	mode = STATIC;
 	glClearColor(1, 1, 1, 0);
 	glMatrixMode(GL_PROJECTION);
@@ -140,6 +147,8 @@ void display(){
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	
+	glLineWidth(1);
+	
 	if (state == MAIN_MENU){	
 			
 		char inst[] = "Press enter to continue...";	
@@ -176,9 +185,14 @@ void display(){
 		char instLineIl[] = "Are the lines straight..";
 		char instLineIl2[] = "or slanted?";
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_CHECKER);
-		drawLineIllusion(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		
 		drawText15(WIDTH/2, HEIGHT_IL + 15, instLineIl);
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instLineIl2);
+		
+		if(mode == STATIC) drawLineIllusion(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		else drawLineIllusionAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		
+		
 	}
 	
 	else if (state == ILLUSION_3){
@@ -204,7 +218,7 @@ void display(){
 		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
-		//drawArrow(right_arrow_tip, RIGHT);
+		drawArrow(right_arrow_tip, RIGHT);
 	
 		char instBlackDots[] = "Are the dots white..";
 		char instBlackDots2[] = "or black?";
@@ -213,6 +227,20 @@ void display(){
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instBlackDots2);
 		if(mode == STATIC) drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
 		else drawBlackDotsAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+	}
+	
+	else if (state == ILLUSION_5){
+		
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		//drawArrow(right_arrow_tip, RIGHT);
+	
+		char instPeg[] = "Look closely..";
+		char instPeg2[] = "How is this possible?";
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_PEG);
+		drawText15(WIDTH/2, HEIGHT_IL + 15, instPeg);
+		drawText15(WIDTH/2, HEIGHT_IL - 5, instPeg2);
+		drawMissingPeg((ARROW_H + arrow_padding), 15, WIDTH - 2*(ARROW_H + arrow_padding),(HEIGHT_IL*.8));
 	}
 	
 	glFlush();

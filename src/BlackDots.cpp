@@ -16,7 +16,7 @@ void drawBlackDots(int startX, int startY, int size){
 	int row, col; 
 	
 	// Grey background
-	glColor3f(0.5f, 0.5f, 0.5f);
+	glColor3f(0.55f, 0.55f, 0.55f);
 	glRecti(startX, startY, startX + rc_size*gridSize - borderSize, startY + rc_size*gridSize - borderSize);
 	
 	for(row = 0; row < gridSize; row++){
@@ -77,4 +77,5 @@ void drawBlackDotsAni(int startX, int startY, int size){
 		if (t < 1) t += .005;
 	}
 	while(t < 1);
+
 }
