@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 640
+#define WIDTH 700
 #define HEIGHT 600
 #define ARROW_W 65
 #define ARROW_H 50

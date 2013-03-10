@@ -166,8 +166,8 @@ void display(){
 		
 		char instLinesCircles[] = "Are the lines equal?";
 		
-		if(mode == STATIC) drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
-		else animatedDrawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		if(mode == STATIC) drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding));
+		else animatedDrawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding));
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_LINES);
 		drawText15(WIDTH/2, HEIGHT_IL, instLinesCircles);
 		
@@ -189,8 +189,8 @@ void display(){
 		drawText15(WIDTH/2, HEIGHT_IL + 15, instLineIl);
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instLineIl2);
 		
-		if(mode == STATIC) drawLineIllusion(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
-		else drawLineIllusionAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		if(mode == STATIC) drawLineIllusion(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding));
+		else drawLineIllusionAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding));
 		
 		
 	}
@@ -198,7 +198,7 @@ void display(){
 	else if (state == ILLUSION_3){
 		
 		
-		drawDisappearGrad(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		drawDisappearGrad(WIDTH, (HEIGHT_IL - ARROW_H - arrow_padding));
 		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
@@ -225,8 +225,8 @@ void display(){
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_BLACKDOTS);
 		drawText15(WIDTH/2, HEIGHT_IL + 15, instBlackDots);
 		drawText15(WIDTH/2, HEIGHT_IL - 5, instBlackDots2);
-		if(mode == STATIC) drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
-		else drawBlackDotsAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding*3)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding*3));
+		if(mode == STATIC) drawBlackDots(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding));
+		else drawBlackDotsAni(WIDTH/2 - (HEIGHT_IL - ARROW_H - arrow_padding)/2, 15, (HEIGHT_IL - ARROW_H - arrow_padding));
 	}
 	
 	else if (state == ILLUSION_5){

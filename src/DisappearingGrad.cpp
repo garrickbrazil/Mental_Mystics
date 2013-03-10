@@ -24,10 +24,11 @@ void drawDisappearGrad(int width, int height){
 	    glVertex2f((width / 2) + radius, (height / 2));
     glEnd();
     radius = radius - 1;
-    i = i - 0.005;
+    i = i - 0.00480;
 	}
-	glColor3f(0.0, 0.0, 0.0);			// Change color to red
-	radius = 3;
+	glColor3f(0.0, 0.0, 0.0);
+	radius = width/100;
+	
 	glBegin(GL_TRIANGLE_FAN);
 	    glVertex2f((width / 2), (height / 2));
 	    for(int x = 0; x < 50; x++)
@@ -41,6 +42,5 @@ void drawDisappearGrad(int width, int height){
 	    }
 	    glVertex2f((width / 2) + radius, (height / 2));
     glEnd();
-    //glFlush();
-
+	
 }
