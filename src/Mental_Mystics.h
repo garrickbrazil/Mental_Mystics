@@ -14,7 +14,7 @@
 #define ARROW_H 50
 
 
-typedef enum {MAIN_MENU, ILLUSION_1, ILLUSION_2, ILLUSION_3, ILLUSION_4, ILLUSION_5} STATE;
+typedef enum {MAIN_MENU, ILLUSION_1, ILLUSION_2, ILLUSION_3, ILLUSION_4, ILLUSION_5, ILLUSION_6} STATE;
 typedef enum {UP, DOWN, LEFT, RIGHT} DIRECTION;
 typedef enum {ANIMATION, STATIC} MODE;
 
@@ -58,3 +58,4 @@ void drawBlackDots(int startX, int startY, int size);
 void drawBlackDotsAni(int startX, int startY, int size);
 void drawDisappearGrad(int width, int height);
 void drawMissingPeg(int startX, int startY, int sizeX, int sizeY);
+void drawSquareSpiral(int startX, int startY, int sizeX, int sizeY);

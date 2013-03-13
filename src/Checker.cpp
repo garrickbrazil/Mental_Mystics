@@ -70,6 +70,7 @@ void drawLines(int startX, int startY, int squareSize, int size)
 	}
 }
 
+
 void drawLineIllusionAni(int startX, int startY, int size){
 	
 	do {

@@ -43,10 +43,7 @@ void drawText12(int centerX, int centerY, char* text){
  *********************************************************/
 void drawText15(int centerX, int centerY, char* text){
 		
-	int length = strlen(text);
-	int x = centerX - 15*length/2;
-	int y = centerY;
-	int index;
+	int length = strlen(text), x = centerX - 15*length/2, y = centerY, index;
 	
 	for(index = 0; index < length; index++, x += 15){
 		glRasterPos2f(x, y);

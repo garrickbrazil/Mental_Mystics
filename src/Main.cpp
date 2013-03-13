@@ -11,7 +11,7 @@
 // Titles
 char TITLE_MAIN[] = "Mental Mystics", TITLE_LINES[] = "Lines & Circles",
 	 TITLE_CHECKER[] = "Slanted Checkers", TITLE_BLACKDOTS[] = "Black Dots",
-	 TITLE_PEG[] = "Three Pegs";
+	 TITLE_PEG[] = "Three Pegs", TITLE_SPI[] = "Spiral Squares";
 
 int arrow_padding = 15;
 int HEIGHT_IL = HEIGHT * .8;
@@ -51,7 +51,7 @@ void initialize(){
 	
 	// States
 	state = MAIN_MENU;
-	last_state = ILLUSION_5;
+	last_state = ILLUSION_6;
 	
 	// Timing
 	t = 0;
@@ -162,12 +162,12 @@ void display(){
 	}
 	
 	else if(state == ILLUSION_1){
-			
 		
 		char instLinesCircles[] = "Are the lines equal?";
 		
 		if(mode == STATIC) drawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding));
 		else animatedDrawCircles(WIDTH , (HEIGHT_IL - ARROW_H - arrow_padding));
+		
 		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_LINES);
 		drawText15(WIDTH/2, HEIGHT_IL, instLinesCircles);
 		
@@ -233,7 +233,7 @@ void display(){
 		
 		// Draw arrows
 		drawArrow(left_arrow_tip, LEFT);
-		//drawArrow(right_arrow_tip, RIGHT);
+		drawArrow(right_arrow_tip, RIGHT);
 	
 		char instPeg[] = "Look closely..";
 		char instPeg2[] = "How is this possible?";
@@ -243,5 +243,18 @@ void display(){
 		drawMissingPeg((ARROW_H + arrow_padding), 15, WIDTH - 2*(ARROW_H + arrow_padding),(HEIGHT_IL*.8));
 	}
 	
+	else if (state == ILLUSION_6){
+	
+		// Draw arrows
+		drawArrow(left_arrow_tip, LEFT);
+		//drawArrow(right_arrow_tip, RIGHT);
+	
+		char instSpi[] = "Are these circles";
+		char instSpi2[] = "or a spiral?";
+		drawTextTitle(WIDTH/2, HEIGHT - arrow_padding - 24, TITLE_SPI);
+		drawText15(WIDTH/2, HEIGHT_IL + 15, instSpi);
+		drawText15(WIDTH/2, HEIGHT_IL - 5, instSpi2);
+		drawSquareSpiral((ARROW_H + arrow_padding), 15, (HEIGHT_IL*.85),(HEIGHT_IL*.85));
+	}
 	glFlush();
 }
