@@ -1,0 +1,5 @@
+1. Install MinGW and msys then add both bin folders to PATH
+2. Put glut32.dll in windows system folder
+3. Put glut.h in MinGW/include/GL/
+4. Put the libglut32win.a into MinGW/lib/
+5. Run the compileMystics.bat

@@ -3,6 +3,7 @@
  * Purpose: contains all shared header info for project
  *********************************************************/
 
+#include <windows.h>
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <stdio.h>
